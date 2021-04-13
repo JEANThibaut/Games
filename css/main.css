@@ -86,23 +86,42 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-#areaGame{
-  width: 100%;
-  min-height: 100%;
+body{
+  min-height: 100vh;
   display: flex;
-  /* justify-content: space-around; */
-  flex-wrap: wrap;
-  background-color: blue;
+  flex-direction: column;
+  justify-content: space-between;
 }
-   
-.cardPlay{
-  width: 10em;
-  height: 10em;
-  background-color: red;
-  margin: 10px 10px 10px 10px;
+header{
+  height: 15vh;
+  background-color: cornflowerblue;
 }
-.selected{
-  background-color: black;
+header div{
+  display: flex;
+  justify-content: center;
+}
+#logo{
+  background-color: cyan;
+  width: auto;
+  max-height: 10vh;
+  margin-top: 2.5vh;
+}
+main{
+  width: 100%;
+  height: 80vh;
+}
+.card-play{
+  width: 80%;
+  height:10vh;
+  border: solid 1px black; 
+  margin: auto;
+  margin-top: 10px;
+}
+
+footer{
+  width: 100%;
+  height:10vh;
+  background-color: chocolate;
 }
 
 /* ==========================================================================

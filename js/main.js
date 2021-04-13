@@ -30,7 +30,5 @@ let aleatoire=[];
     console.log(aleatoire);
     let playedCard=document.querySelector("section");
     for(let select in aleatoire){
-       playedCard.innerHTML += `<div class="cardPlay">`+ aleatoire[select] + `</div>`
-
-
+       playedCard.innerHTML += `<div class="cardPlay">`+ aleatoire[select] + `</div>`;
     }
