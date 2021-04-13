@@ -86,6 +86,24 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+#areaGame{
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  /* justify-content: space-around; */
+  flex-wrap: wrap;
+  background-color: blue;
+}
+   
+.cardPlay{
+  width: 10em;
+  height: 10em;
+  background-color: red;
+  margin: 10px 10px 10px 10px;
+}
+.selected{
+  background-color: black;
+}
 
 /* ==========================================================================
    Helper classes
