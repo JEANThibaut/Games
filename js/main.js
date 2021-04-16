@@ -23,7 +23,7 @@ let cardsArray=[];
 let userChoices=[];
 let imgAttribut=[];
 let score = 10;
-
+let cardId;
 
 //extract all values of CARDS in cardsArray and set index of images
 for (let i=0;i<CARDS.length;i++){
@@ -73,35 +73,41 @@ function addClick(){
 
 // On click, set imgage background from imgAttribut and init compare function
 function makeChoice(){
-    let index = cardsArray.indexOf(this.id);
+    cardId = cardsArray.indexOf(this.id);
     userChoices.push(this.id)
     this.removeEventListener("click", makeChoice)
     //add style to selected cardcard
-    this.style.backgroundImage= `url(${imgAttribut[index]})`;
-    this.style.backgroundSize="contain";
-    this.style.backgroundColor= "white";
+    // this.style.backgroundImage= `url(${imgAttribut[cardId]})`;
+    // this.style.backgroundSize="contain";
+    // this.style.backgroundColor= "white";
+    imageDisplay(this)
     if (userChoices.length==2){
         setTimeout(compare,200);
     }
 }
 
+function imageDisplay(item){
+    item.style.backgroundImage= `url(${imgAttribut[cardId]})`;
+    item.style.backgroundSize="contain";
+    item.style.backgroundColor= "white";
+}
 
 function compare(){
     let array1;
     let array2 = userChoices.sort();
-    console.log(array2)
         for (let index in CARDS){
         array1 = CARDS[index].sort();
-        console.log(array1.toString())
 
             if(array1.toString()==array2.toString()){
+                for (let index in userChoices){
+                    let element=document.getElementById(`${userChoices[index]}`);
+                    element.classList.add("found");
+                }
                 console.log("trouvé")
             }
         }
     userChoices=[];
 }
-      
-    
+      console.log(imgAttribut)
     
    
-console.log(imgAttribut)

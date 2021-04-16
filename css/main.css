@@ -132,7 +132,7 @@ footer{
   background-image: url("../img/doscarte.png");
 }
 .found{
-  box-shadow:0;
+  box-shadow: none;
 
 }
 
