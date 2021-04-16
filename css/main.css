@@ -117,11 +117,8 @@ header div{
   background-repeat: no-repeat;
   background-position: center;
   box-shadow: black 5px 5px 5px;
-  z-index:0;
 }
-.flipped{
-  background-image: none;
-}
+
 main{
   background-color: rgb(23, 88, 23);
 }
@@ -130,17 +127,14 @@ footer{
   height:10vh;
   background-color: chocolate;
 }
-
-#overlay{
-  position: fixed;
-  z-index: 1;
-  width: 4em;
-  height:4em;
-  background-color: aqua;
-
+/* Class found/unfinded */
+.unfinded{
+  background-image: url("../img/doscarte.png");
+}
+.found{
+  box-shadow:0;
 
 }
-
 
 /* Media query */
 @media screen and (min-width:360px){

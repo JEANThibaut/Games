@@ -49,8 +49,6 @@ function shuffle(){
 
 }
 shuffle();
-console.log(cardsArray)
-console.log(imgAttribut)
 
 
 function createCards(){
@@ -76,11 +74,34 @@ function addClick(){
 // On click, set imgage background from imgAttribut and init compare function
 function makeChoice(){
     let index = cardsArray.indexOf(this.id);
-    console.log(index);
-    console.log(this);
+    userChoices.push(this.id)
+    this.removeEventListener("click", makeChoice)
+    //add style to selected cardcard
     this.style.backgroundImage= `url(${imgAttribut[index]})`;
- 
+    this.style.backgroundSize="contain";
+    this.style.backgroundColor= "white";
+    if (userChoices.length==2){
+        setTimeout(compare,200);
+    }
 }
 
 
+function compare(){
+    let array1;
+    let array2 = userChoices.sort();
+    console.log(array2)
+        for (let index in CARDS){
+        array1 = CARDS[index].sort();
+        console.log(array1.toString())
 
+            if(array1.toString()==array2.toString()){
+                console.log("trouvé")
+            }
+        }
+    userChoices=[];
+}
+      
+    
+    
+   
+console.log(imgAttribut)
