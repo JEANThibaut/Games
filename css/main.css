@@ -112,12 +112,27 @@ header div{
   border: solid 2px white; 
   border-radius: 10px;
   margin:10px;
+  /* background-image: url("../img/doscarte.png");
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 10px 20px 30px black;*/ 
+}
+.back-card{ 
   background-image: url("../img/doscarte.png");
   background-size:cover;
   background-repeat: no-repeat;
   background-position: center;
-  box-shadow: black 5px 5px 5px;
+  box-shadow: 10px 20px 30px black; 
 }
+
+
+.redcard{
+  background-color: green;
+}
+
+
+
 
 main{
   background-color: rgb(23, 88, 23);
@@ -127,14 +142,7 @@ footer{
   height:10vh;
   background-color: chocolate;
 }
-/* Class found/unfinded */
-.unfinded{
-  background-image: url("../img/doscarte.png");
-}
-.found{
-  box-shadow: none;
 
-}
 
 /* Media query */
 @media screen and (min-width:360px){
