@@ -24,7 +24,8 @@ let userChoices=[];
 let imgAttribut=[];
 let score = 10;
 let cardId;
-
+scoreArea=document.getElementById("score");
+scoreArea.innerText = `Coups Restants ${score}`
 
 
 //extract all values of CARDS in cardsArray and set index of images
@@ -52,6 +53,8 @@ function shuffle(){
 }
 shuffle();
 
+
+
 function createCards(){
     let areaGame= document.getElementById("areaGame");
     for (i=0;i<cardsArray.length;i++){
@@ -71,17 +74,22 @@ function addClick(){
 // On click, set imgage background from imgAttribut and init compare function
 function makeChoice(){
     cardId = cardsArray.indexOf(this.id);
-    userChoices.push(this.id);
-    // imgSource.push(this);
-   
+    userChoices.push(this.id);   
     this.removeEventListener("click", makeChoice);
     this.style.backgroundImage= `url(${imgAttribut[cardId]})`;
     this.style.backgroundSize="contain";
     this.style.backgroundColor= "white";
     if(userChoices.length==2){
+        score --;
+        scoreArea.innerText="";
+        scoreArea.innerText = `Coups Restants ${score}`
+        
         setTimeout(compare,1000);
+        
+
     }
 }
+
 
 
 function remove(elt){
@@ -96,25 +104,21 @@ function compare(){
         let element=document.getElementById(`${userChoices[i]}`);
         for (let j=0; j<CARDS.length; j++){
            let array= CARDS[j].sort().toString();
-        //    console.log(CARDS[j]);
-        //    console.log(array);
             if(concat==array){
                     console.log("trouvé");
                     element.classList.remove("back-card");
                     element.style.backgroundColor="";
                     element.style.backgroundImage= `url(${imgAttribut[j]})`;
-                    // element.style.backgroundSize="contain";
-                    // element.style.src=imgArray[0];
-                    element.classList.add("redcard")
+                    element.classList.add("greencard")
             }
             else{
-
-                console.log("non trouvé");
+                console.log(score);
                 remove(element);
             }
         }
     }
      userChoices=[];
+     
 }
 
         
