@@ -24,12 +24,15 @@ let imgAttribut=[];
 let score = 15;
 
 let layer = document.getElementById("playLayer");
+//Hide replay Button
 let replayBtn= document.getElementById("replay");
 replayBtn.classList.add("hidden");
+//Hidden End Img
+let resultImg = document.querySelectorAll('.final');
+resultImg.forEach(img => img.classList.add("hidden"));
+//Initial Score
 scoreArea=document.getElementById("score");
 scoreArea.innerHTML += `<div>Coups Restants</div><div>${score}</div>`
-
-
 
 //extract all values of CARDS in cardsArray and set index of images
 for (let i=0;i<CARDS.length;i++){
@@ -38,16 +41,18 @@ for (let i=0;i<CARDS.length;i++){
         imgAttribut.push(imgArray[i])
     }
 }
-// Shuffle two Array at same
+
+// Shuffle two Array at same time with same value
 function shuffle(){
     let tempA;
     let tempB;
     for (let i=0;i<cardsArray.length;i++){
         tempA = cardsArray[i];
+        //Shuffle first array
         tempB = Math.floor(Math.random()*cardsArray.length);
         cardsArray[i]= cardsArray[tempB];
         cardsArray[tempB]= tempA;
-
+        // shuffle second array
         tempA = imgAttribut[i];
         imgAttribut[i]= imgAttribut[tempB];
         imgAttribut[tempB]= tempA;
@@ -55,16 +60,15 @@ function shuffle(){
 
 }
 shuffle();
+// -------------Create Cards
 
-
-    let areaGame= document.getElementById("areaGame")
-    for (i=0;i<cardsArray.length;i++){
-
-     areaGame.innerHTML += `<div class="card-play" id="${cardsArray[i]}">
-                            <img class="front" src="${imgAttribut[i]}">
-                            <img class="back" src="img/doscarte.png">
-                            </div>`;
-    }
+let areaGame= document.getElementById("areaGame")
+for (i=0;i<cardsArray.length;i++){
+    areaGame.innerHTML += `<div class="card-play" id="${cardsArray[i]}">
+                        <img class="front" src="${imgAttribut[i]}">
+                        <img class="back" src="img/doscarte.png">
+                        </div>`;
+}
 
 const cardPlay =document.querySelectorAll('.card-play'); 
 cardPlay.forEach(card => card.addEventListener("click",flip))
@@ -101,12 +105,13 @@ function compare(){
             }
             if(tryNumber==(CARDS.length)-1){
                 winLayer();
+                return;
             }
             if (score===1){
                 looseLayer();
+                return;
             }
         }
-
     userChoices=[];
     score--;
     scoreArea.innerHTML ="";
@@ -114,21 +119,26 @@ function compare(){
       
 }
 
-
-
-
 //--------------------------------Layers------------------------
 
 function playLayer(){
     layer.classList.add("hidden");
 }
+
 function looseLayer(){
     layer.classList.remove("hidden")
     let playBtn = document.getElementById("playBtn");
     playBtn.classList.add("hidden");
     replayBtn.classList.remove("hidden");
+    let loose= document.getElementById("looseImg");
+    loose.classList.remove("hidden");
 }
+
 function winLayer(){
-    layer.classList.remove("hidden")
+    layer.classList.remove("hidden");
     playBtn.classList.add("hidden");
+    let playBtn = document.getElementById("playBtn");
+    replayBtn.classList.remove("hidden");
+    let win= document.getElementById("winImg");
+    win.classList.remove("hidden");
 }

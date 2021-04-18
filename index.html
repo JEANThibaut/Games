@@ -25,27 +25,31 @@
 </head>
 
 <body> 
+
+  <!-- Layers -->
   <div id="playLayer">
+    <img src="img/gagne.png" id="winImg" class="final" alt="winImg">
+    <img src="img/perdu.png" id="looseImg" class="final" alt="looseImg">
     <button class="btn" id="playBtn" onclick="playLayer()">Jouez</button>
     <button class="btn" id="replay" onclick="window.location.reload()">Rejouez?</button>
   </div>
+  <!-- Header -->
   <header class="d-flex justify-content-around">
-      <span><img id="logo" src="img/logo.png"></span>
+      <span><img id="logo" src="img/logo.png" alt="logo"></span>
   </header>
-  
-  <section class="container-fluid d-flex justify-content-around text-center " >
+  <!-- Time and Score -->
+  <section class="container-fluid d-flex justify-content-around text-center" >
     <div class="w-25 counter" ><p>Temps restant</p></div>
     <div class="w-25 counter" id="score"></div>
   </section>
   
- 
+ <!-- Area Game -->
     <main>
-      <section id="areaGame" class="container-fluid mt-1 d-flex flex-wrap justify-content-around aligns-items-center ">
+      <section id="areaGame" class="container-fluid mt-1 d-flex flex-wrap justify-content-around aligns-items-center">
       </section>
     </main>
-  
 
-
+  <!--  Footer -->
   <footer>
     <div></div>
   </footer>
