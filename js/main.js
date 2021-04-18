@@ -17,20 +17,19 @@ let imgArray=[
     "img/Reine.png",
     "img/Valet.png"
 ]
-
-let imgSource;
+let tryNumber=0;
 let cardsArray=[];
 let userChoices=[];
 let imgAttribut=[];
 let score = 15;
-let cardId;
+
+let layer = document.getElementById("playLayer");
+let replayBtn= document.getElementById("replay");
+replayBtn.classList.add("hidden");
 scoreArea=document.getElementById("score");
 scoreArea.innerHTML += `<div>Coups Restants</div><div>${score}</div>`
 
-function layer(){
-    let layer = document.getElementById("overlay");
-    layer.classList.add("hidden");
-}
+
 
 //extract all values of CARDS in cardsArray and set index of images
 for (let i=0;i<CARDS.length;i++){
@@ -39,7 +38,7 @@ for (let i=0;i<CARDS.length;i++){
         imgAttribut.push(imgArray[i])
     }
 }
-// Shuffle two Array at Same
+// Shuffle two Array at same
 function shuffle(){
     let tempA;
     let tempB;
@@ -58,7 +57,6 @@ function shuffle(){
 shuffle();
 
 
-// function createCards(){
     let areaGame= document.getElementById("areaGame")
     for (i=0;i<cardsArray.length;i++){
 
@@ -67,7 +65,6 @@ shuffle();
                             <img class="back" src="img/doscarte.png">
                             </div>`;
     }
-// }  
 
 const cardPlay =document.querySelectorAll('.card-play'); 
 cardPlay.forEach(card => card.addEventListener("click",flip))
@@ -89,16 +86,27 @@ function compare(){
         for(i=0;i<CARDS.length;i++){
             let cardsSort =CARDS[i].sort().toString();
             if(choicesSort!==cardsSort){
+                //Loose
                 selectedCards.forEach(cards => cards.classList.remove("flip"));
                 selectedCards.forEach(cards => cards.addEventListener("click",flip));  
             }
             else{
+                // Win
                 selectedCards.forEach(cards => cards.classList.remove("flip"));
                 selectedCards.forEach(cards => cards.classList.add("flipped"));
                 selectedCards.forEach(cards => cards.removeEventListener("click",flip));
+                tryNumber ++;
+                console.log(tryNumber)
                 break;
             }
+            if(tryNumber==(CARDS.length)-1){
+                winLayer();
+            }
+            if (score===1){
+                looseLayer();
+            }
         }
+
     userChoices=[];
     score--;
     scoreArea.innerHTML ="";
@@ -106,4 +114,21 @@ function compare(){
       
 }
 
-console.log(imgAttribut)
+
+
+
+//--------------------------------Layers------------------------
+
+function playLayer(){
+    layer.classList.add("hidden");
+}
+function looseLayer(){
+    layer.classList.remove("hidden")
+    let playBtn = document.getElementById("playBtn");
+    playBtn.classList.add("hidden");
+    replayBtn.classList.remove("hidden");
+}
+function winLayer(){
+    layer.classList.remove("hidden")
+    playBtn.classList.add("hidden");
+}
