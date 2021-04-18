@@ -54,74 +54,42 @@ function shuffle(){
 shuffle();
 
 
-
-function createCards(){
-    let areaGame= document.getElementById("areaGame");
+// function createCards(){
+    let areaGame= document.getElementById("areaGame")
     for (i=0;i<cardsArray.length;i++){
-     areaGame.innerHTML += `<div class="card-play back-card " id="${cardsArray[i]}" </div>`;
+
+     areaGame.innerHTML += `<div class="card-play" id="${cardsArray[i]}">
+                            <img class="front" src="${imgAttribut[i]}">
+                            <img class="back" src="img/doscarte.png">
+                            </div>`;
     }
-    addClick();
-}  
-   
-    //add click function
-function addClick(){
-    let cards=document.getElementsByClassName("card-play");
-    for (i=0; i<cards.length;i++){
-        cards[i].addEventListener("click", makeChoice); 
+// }  
+
+const cards=document.querySelectorAll('.card-play'); 
+cards.forEach(card => card.addEventListener("click",flip))
+
+//add flip function
+function flip(){
+    this.classList.add("flip");
+    userChoices.push(this.id);
+    if (userChoices.length==2){
+        compare();
     }
-}
-
-// On click, set imgage background from imgAttribut and init compare function
-function makeChoice(){
-    cardId = cardsArray.indexOf(this.id);
-    userChoices.push(this.id);   
-    this.removeEventListener("click", makeChoice);
-    this.style.backgroundImage= `url(${imgAttribut[cardId]})`;
-    this.style.backgroundSize="contain";
-    this.style.backgroundColor= "white";
-    if(userChoices.length==2){
-        score --;
-        scoreArea.innerText="";
-        scoreArea.innerText = `Coups Restants ${score}`
-        
-        setTimeout(compare,1000);
-        
-
-    }
-}
-
-
-
-function remove(elt){
-    elt.style.removeProperty("background-image");
-    elt.style.removeProperty("background-size");
-    elt.addEventListener("click", makeChoice);
 }
 
 function compare(){
-    let concat = userChoices.sort().toString() 
-    for (let i=0; i<userChoices.length; i++){
-        let element=document.getElementById(`${userChoices[i]}`);
-        for (let j=0; j<CARDS.length; j++){
-           let array= CARDS[j].sort().toString();
-            if(concat==array){
-                    console.log("trouvé");
-                    element.classList.remove("back-card");
-                    element.style.backgroundColor="";
-                    element.style.backgroundImage= `url(${imgAttribut[j]})`;
-                    element.classList.add("greencard")
-            }
-            else{
-                console.log(score);
-                remove(element);
-            }
+    let choicesSort= userChoices.sort().toString();
+        for(i=0;i<CARDS.length;i++){
+            let cardsSort =CARDS[i].sort().toString();
+                if(choicesSort!==cardsSort){
+                    let selectedCards = document.querySelectorAll(".flip");
+                    console.log (selectedCards)
+                    break;
+                }
+                
+            
         }
-    }
-     userChoices=[];
-     
+        userChoices=[];
 }
 
-        
-       console.log(imgAttribut);
-
-
+console.log(imgAttribut)
