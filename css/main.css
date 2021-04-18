@@ -106,26 +106,36 @@ header div{
   width: auto;
   max-height: 10vh;
 }
+
+#overlay{
+  width:100vw;
+  height:100vh;
+  background-color: aqua;
+  opacity: 0.5;
+  z-index:1;
+}
 /*------------------------AreaGame -------------------------*/
 
 
 .card-play{
   width: 4em;
   height:4em;
-  border: solid 2px white; 
   border-radius: 10px;
   margin:8px;
   position: relative;
   transform-style: preserve-3d;
   transition: transform .5s;
+  
 }
 .front, .back{
   width: 100%;
   height: 100%;
   position: absolute;
   background-color: white;
+  border: solid 2px white; 
   border-radius: 10px;
   backface-visibility: hidden;
+  box-shadow: 10px 10px 10px;
 }
 .front{
   transform: rotateY(180deg);
@@ -133,7 +143,11 @@ header div{
 .card-play.flip{
   transform: rotateY(180deg);
 }
+.flipped{
+  transform: rotateY(180deg);
+}
 main{
+  position:static;
   background-color: rgb(23, 88, 23);
   
 }

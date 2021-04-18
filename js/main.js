@@ -27,6 +27,9 @@ let cardId;
 scoreArea=document.getElementById("score");
 scoreArea.innerText = `Coups Restants ${score}`
 
+//Layer
+// layer=document.getElementById("overlay");
+// layer.style.display= "none";
 
 //extract all values of CARDS in cardsArray and set index of images
 for (let i=0;i<CARDS.length;i++){
@@ -65,31 +68,48 @@ shuffle();
     }
 // }  
 
-const cards=document.querySelectorAll('.card-play'); 
-cards.forEach(card => card.addEventListener("click",flip))
+const cardPlay =document.querySelectorAll('.card-play'); 
+cardPlay.forEach(card => card.addEventListener("click",flip))
 
 //add flip function
 function flip(){
-    this.classList.add("flip");
+    this.classList.add("flip",);
     userChoices.push(this.id);
+    this.removeEventListener("click",flip);
     if (userChoices.length==2){
-        compare();
+        setTimeout(compare,1000);
     }
+    
 }
 
 function compare(){
+   
     let choicesSort= userChoices.sort().toString();
+    let selectedCards = document.querySelectorAll(".flip");
         for(i=0;i<CARDS.length;i++){
             let cardsSort =CARDS[i].sort().toString();
                 if(choicesSort!==cardsSort){
-                    let selectedCards = document.querySelectorAll(".flip");
-                    console.log (selectedCards)
-                    break;
+                    selectedCards.forEach(cards => cards.classList.remove("flip"));
+                    selectedCards.forEach(cards => cards.addEventListener("click",flip));
+                    console.log("not found");
+                    
+                    
+                    
+                    
                 }
+                else{
+                console.log("found")
+                selectedCards.forEach(cards => cards.classList.remove("flip"));
+                selectedCards.forEach(cards => cards.classList.add("flipped"));
+                selectedCards.forEach(cards => cards.removeEventListener("click",flip));
                 
+
+                break;
+                
+                }
             
         }
-        userChoices=[];
+      userChoices=[];
 }
 
 console.log(imgAttribut)
