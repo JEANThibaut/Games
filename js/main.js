@@ -135,8 +135,8 @@ function looseLayer(){
 
 function winLayer(){
     layer.classList.remove("hidden");
-    playBtn.classList.add("hidden");
     let playBtn = document.getElementById("playBtn");
+    playBtn.classList.add("hidden");
     replayBtn.classList.remove("hidden");
     let win= document.getElementById("winImg");
     win.classList.remove("hidden");
