@@ -100,7 +100,6 @@ function compare(){
                 selectedCards.forEach(cards => cards.classList.add("flipped"));
                 selectedCards.forEach(cards => cards.removeEventListener("click",flip));
                 tryNumber ++;
-                console.log(tryNumber)
                 break;
             }
             if(tryNumber==(CARDS.length)-1){
