@@ -87,6 +87,137 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+
+body{
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  background-image: url("../img/tapis.png");
+  background-size: cover;
+  background-position: center;
+}
+.counter{
+  color:white;
+  border: solid 1px white;
+  border-radius: 10px;
+  background-color: rgba(3, 87, 3, 0.514)
+}
+header{
+  height: 15vh;
+}
+header div{
+  display: flex;
+  justify-content: center;
+}
+#logo{
+  width: auto;
+  height:15vh;
+}
+.btn{
+  width: 10em;
+  height: 5em;
+  border: solid white 1px;
+  border-radius: 2em;
+  color: white;
+}
+.btn:hover{
+  background-color:rgb(163, 136, 16)
+}
+.final{
+  width: 50%;
+  height:auto;
+}
+
+
+/*------------------------AreaGame -------------------------*/
+#playLayer{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(3, 87, 3, 0.9)  ;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  z-index:1;
+  text-align: center;
+
+}
+.card-play{
+  width: 4em;
+  height:4em;
+  border-radius: 10px;
+  margin:8px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .5s;
+}
+.front, .back{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: white;
+  border: solid 2px white; 
+  border-radius: 10px;
+  backface-visibility: hidden;
+  box-shadow: 10px 10px 10px;
+}
+.front{
+  transform: rotateY(180deg);
+}
+.card-play.flip{
+  transform: rotateY(180deg);
+}
+.flipped{
+  transform: rotateY(180deg);
+}
+main{  
+  position:static;
+}
+
+/* -------------------------------------------- */
+
+footer{
+  width: 100%;
+  height:10vh;
+  background-color: rgba(3, 87, 3, 0.8)
+}
+/* Media query */
+@media screen and (max-width:360px){
+  .counter{
+    font-size: 0.8em;
+  }
+}
+@media screen and (min-width:360px){
+  .card-play{
+  width: 5em;
+  height: 5em;
+  }
+}
+@media screen and (min-width:768px){
+  main{
+    width: 80%;
+    margin: auto;
+  }
+
+}
+@media screen and (min-width:1024px){
+  .card-play{
+    width: 12%;
+    height:8em;
+  }
+
+}
+@media screen and (min-width:1440px){
+  .card-play{
+    width: 12%;
+    height:12em;
+  }
+
+}
 /* ==========================================================================
    Helper classes
    ========================================================================== */
