@@ -22,14 +22,11 @@ let imgSource;
 let cardsArray=[];
 let userChoices=[];
 let imgAttribut=[];
-let score = 10;
+let score = 15;
 let cardId;
 scoreArea=document.getElementById("score");
-scoreArea.innerText = `Coups Restants ${score}`
+scoreArea.innerHTML += `<div>Coups Restants</div><div>${score}</div>`
 
-//Layer
-// layer=document.getElementById("overlay");
-// layer.style.display= "none";
 
 //extract all values of CARDS in cardsArray and set index of images
 for (let i=0;i<CARDS.length;i++){
@@ -92,8 +89,7 @@ function compare(){
                     selectedCards.forEach(cards => cards.classList.remove("flip"));
                     selectedCards.forEach(cards => cards.addEventListener("click",flip));
                     console.log("not found");
-                    
-                    
+                   
                     
                     
                 }
@@ -110,6 +106,10 @@ function compare(){
             
         }
       userChoices=[];
+      score--;
+      scoreArea.innerHTML ="";
+      scoreArea.innerHTML +=`<div>Coups Restants</div><div>${score}</div>`
+      
 }
 
 console.log(imgAttribut)
