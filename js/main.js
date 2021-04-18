@@ -27,6 +27,10 @@ let cardId;
 scoreArea=document.getElementById("score");
 scoreArea.innerHTML += `<div>Coups Restants</div><div>${score}</div>`
 
+function layer(){
+    let layer = document.getElementById("overlay");
+    layer.classList.add("hidden");
+}
 
 //extract all values of CARDS in cardsArray and set index of images
 for (let i=0;i<CARDS.length;i++){
@@ -80,35 +84,25 @@ function flip(){
 }
 
 function compare(){
-   
     let choicesSort= userChoices.sort().toString();
     let selectedCards = document.querySelectorAll(".flip");
         for(i=0;i<CARDS.length;i++){
             let cardsSort =CARDS[i].sort().toString();
-                if(choicesSort!==cardsSort){
-                    selectedCards.forEach(cards => cards.classList.remove("flip"));
-                    selectedCards.forEach(cards => cards.addEventListener("click",flip));
-                    console.log("not found");
-                   
-                    
-                    
-                }
-                else{
-                console.log("found")
+            if(choicesSort!==cardsSort){
+                selectedCards.forEach(cards => cards.classList.remove("flip"));
+                selectedCards.forEach(cards => cards.addEventListener("click",flip));  
+            }
+            else{
                 selectedCards.forEach(cards => cards.classList.remove("flip"));
                 selectedCards.forEach(cards => cards.classList.add("flipped"));
                 selectedCards.forEach(cards => cards.removeEventListener("click",flip));
-                
-
                 break;
-                
-                }
-            
+            }
         }
-      userChoices=[];
-      score--;
-      scoreArea.innerHTML ="";
-      scoreArea.innerHTML +=`<div>Coups Restants</div><div>${score}</div>`
+    userChoices=[];
+    score--;
+    scoreArea.innerHTML ="";
+    scoreArea.innerHTML +=`<div>Coups Restants</div><div>${score}</div>`
       
 }
 
