@@ -66,12 +66,12 @@ shuffle();
 // -------------Create Cards
 
 let areaGame= document.getElementById("areaGame")
-for (let i=0;i<cardsArray.length;i++){
-    areaGame.innerHTML += `<div class="card-play" id="${cardsArray[i]}">
-                        <img class="front" src="${imgAttribut[i]}">
-                        <img class="back" src="img/doscarte.png">
-                        </div>`;
-}
+  for (let i=0;i<cardsArray.length;i++){
+      areaGame.innerHTML += `<div class="card-play" id="${cardsArray[i]}">
+                          <img class="front" src="${imgAttribut[i]}">
+                          <img class="back" src="img/doscarte.png">
+                          </div>`;
+  }
 
 const cardPlay =document.querySelectorAll('.card-play'); 
 cardPlay.forEach(card => card.addEventListener("click",flip))
@@ -92,6 +92,7 @@ function compare(){
     let choicesSort= userChoices.sort().toString();
     let selectedCards = document.querySelectorAll(".flip");
         for(let i=0;i<CARDS.length;i++){
+
             let cardsSort =CARDS[i].sort().toString();
             if(choicesSort!==cardsSort){
                 //Loose
@@ -105,6 +106,7 @@ function compare(){
                 selectedCards.forEach(cards => cards.removeEventListener("click",flip));
                 tryNumber ++;
                 score ++;
+
                 break;
             }
             if(tryNumber==(CARDS.length)-1){
@@ -116,15 +118,16 @@ function compare(){
                 return;
             }
         }
+
     antiPLayLayer.classList.add("hidden");
     userChoices=[];
     score--;
     scoreArea.innerHTML ="";
     scoreArea.innerHTML +=`<div>Coups Restants</div><div>${score}</div>`
-      
 }
 
 //--------------------------------Layers------------------------
+
 
 
 function playLayer(){
