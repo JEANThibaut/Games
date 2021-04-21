@@ -23,6 +23,9 @@ let userChoices=[];
 let imgAttribut=[];
 let score = 15;
 
+let antiPLayLayer=document.getElementById("antiplayLayer");
+antiPLayLayer.classList.add("hidden");
+
 let layer = document.getElementById("playLayer");
 //Hide replay Button
 let replayBtn= document.getElementById("replay");
@@ -63,12 +66,12 @@ shuffle();
 // -------------Create Cards
 
 let areaGame= document.getElementById("areaGame")
-for (i=0;i<cardsArray.length;i++){
-    areaGame.innerHTML += `<div class="card-play" id="${cardsArray[i]}">
-                        <img class="front" src="${imgAttribut[i]}">
-                        <img class="back" src="img/doscarte.png">
-                        </div>`;
-}
+  for (let i=0;i<cardsArray.length;i++){
+      areaGame.innerHTML += `<div class="card-play" id="${cardsArray[i]}">
+                          <img class="front" src="${imgAttribut[i]}">
+                          <img class="back" src="img/doscarte.png">
+                          </div>`;
+  }
 
 const cardPlay =document.querySelectorAll('.card-play'); 
 cardPlay.forEach(card => card.addEventListener("click",flip))
@@ -79,6 +82,7 @@ function flip(){
     userChoices.push(this.id);
     this.removeEventListener("click",flip);
     if (userChoices.length==2){
+        antiPLayLayer.classList.remove("hidden");
         setTimeout(compare,1000);
     }
     
@@ -87,7 +91,8 @@ function flip(){
 function compare(){
     let choicesSort= userChoices.sort().toString();
     let selectedCards = document.querySelectorAll(".flip");
-        for(i=0;i<CARDS.length;i++){
+        for(let i=0;i<CARDS.length;i++){
+
             let cardsSort =CARDS[i].sort().toString();
             if(choicesSort!==cardsSort){
                 //Loose
@@ -100,6 +105,8 @@ function compare(){
                 selectedCards.forEach(cards => cards.classList.add("flipped"));
                 selectedCards.forEach(cards => cards.removeEventListener("click",flip));
                 tryNumber ++;
+                score ++;
+
                 break;
             }
             if(tryNumber==(CARDS.length)-1){
@@ -111,14 +118,17 @@ function compare(){
                 return;
             }
         }
+
+    antiPLayLayer.classList.add("hidden");
     userChoices=[];
     score--;
     scoreArea.innerHTML ="";
     scoreArea.innerHTML +=`<div>Coups Restants</div><div>${score}</div>`
-      
 }
 
 //--------------------------------Layers------------------------
+
+
 
 function playLayer(){
     layer.classList.add("hidden");
