@@ -17,16 +17,25 @@ let imgArray=[
     "img/Reine.png",
     "img/Valet.png"
 ]
-
-let imgSource;
+let tryNumber=0;
 let cardsArray=[];
 let userChoices=[];
 let imgAttribut=[];
-let score = 10;
-let cardId;
-scoreArea=document.getElementById("score");
-scoreArea.innerText = `Coups Restants ${score}`
+let score = 15;
 
+let antiPLayLayer=document.getElementById("antiplayLayer");
+antiPLayLayer.classList.add("hidden");
+
+let layer = document.getElementById("playLayer");
+//Hide replay Button
+let replayBtn= document.getElementById("replay");
+replayBtn.classList.add("hidden");
+//Hidden End Img
+let resultImg = document.querySelectorAll('.final');
+resultImg.forEach(img => img.classList.add("hidden"));
+//Initial Score
+scoreArea=document.getElementById("score");
+scoreArea.innerHTML += `<div>Coups Restants</div><div>${score}</div>`
 
 //extract all values of CARDS in cardsArray and set index of images
 for (let i=0;i<CARDS.length;i++){
@@ -35,16 +44,18 @@ for (let i=0;i<CARDS.length;i++){
         imgAttribut.push(imgArray[i])
     }
 }
-// Shuffle two Array at Same
+
+// Shuffle two Array at same time with same value
 function shuffle(){
     let tempA;
     let tempB;
     for (let i=0;i<cardsArray.length;i++){
         tempA = cardsArray[i];
+        //Shuffle first array
         tempB = Math.floor(Math.random()*cardsArray.length);
         cardsArray[i]= cardsArray[tempB];
         cardsArray[tempB]= tempA;
-
+        // shuffle second array
         tempA = imgAttribut[i];
         imgAttribut[i]= imgAttribut[tempB];
         imgAttribut[tempB]= tempA;
@@ -52,76 +63,88 @@ function shuffle(){
 
 }
 shuffle();
+// -------------Create Cards
 
-
-
-function createCards(){
-    let areaGame= document.getElementById("areaGame");
-    for (i=0;i<cardsArray.length;i++){
-     areaGame.innerHTML += `<div class="card-play back-card " id="${cardsArray[i]}" </div>`;
-    }
-    addClick();
-}  
-   
-    //add click function
-function addClick(){
-    let cards=document.getElementsByClassName("card-play");
-    for (i=0; i<cards.length;i++){
-        cards[i].addEventListener("click", makeChoice); 
-    }
+let areaGame= document.getElementById("areaGame")
+for (let i=0;i<cardsArray.length;i++){
+    areaGame.innerHTML += `<div class="card-play" id="${cardsArray[i]}">
+                        <img class="front" src="${imgAttribut[i]}">
+                        <img class="back" src="img/doscarte.png">
+                        </div>`;
 }
 
-// On click, set imgage background from imgAttribut and init compare function
-function makeChoice(){
-    cardId = cardsArray.indexOf(this.id);
-    userChoices.push(this.id);   
-    this.removeEventListener("click", makeChoice);
-    this.style.backgroundImage= `url(${imgAttribut[cardId]})`;
-    this.style.backgroundSize="contain";
-    this.style.backgroundColor= "white";
-    if(userChoices.length==2){
-        score --;
-        scoreArea.innerText="";
-        scoreArea.innerText = `Coups Restants ${score}`
-        
+const cardPlay =document.querySelectorAll('.card-play'); 
+cardPlay.forEach(card => card.addEventListener("click",flip))
+
+//add flip function
+function flip(){
+    this.classList.add("flip",);
+    userChoices.push(this.id);
+    this.removeEventListener("click",flip);
+    if (userChoices.length==2){
+        antiPLayLayer.classList.remove("hidden");
         setTimeout(compare,1000);
-        
-
     }
-}
-
-
-
-function remove(elt){
-    elt.style.removeProperty("background-image");
-    elt.style.removeProperty("background-size");
-    elt.addEventListener("click", makeChoice);
+    
 }
 
 function compare(){
-    let concat = userChoices.sort().toString() 
-    for (let i=0; i<userChoices.length; i++){
-        let element=document.getElementById(`${userChoices[i]}`);
-        for (let j=0; j<CARDS.length; j++){
-           let array= CARDS[j].sort().toString();
-            if(concat==array){
-                    console.log("trouvé");
-                    element.classList.remove("back-card");
-                    element.style.backgroundColor="";
-                    element.style.backgroundImage= `url(${imgAttribut[j]})`;
-                    element.classList.add("greencard")
+    let choicesSort= userChoices.sort().toString();
+    let selectedCards = document.querySelectorAll(".flip");
+        for(let i=0;i<CARDS.length;i++){
+            let cardsSort =CARDS[i].sort().toString();
+            if(choicesSort!==cardsSort){
+                //Loose
+                selectedCards.forEach(cards => cards.classList.remove("flip"));
+                selectedCards.forEach(cards => cards.addEventListener("click",flip));  
             }
             else{
-                console.log(score);
-                remove(element);
+                // Win
+                selectedCards.forEach(cards => cards.classList.remove("flip"));
+                selectedCards.forEach(cards => cards.classList.add("flipped"));
+                selectedCards.forEach(cards => cards.removeEventListener("click",flip));
+                tryNumber ++;
+                score ++;
+                break;
+            }
+            if(tryNumber==(CARDS.length)-1){
+                winLayer();
+                return;
+            }
+            if (score===1){
+                looseLayer();
+                return;
             }
         }
-    }
-     userChoices=[];
-     
+    antiPLayLayer.classList.add("hidden");
+    userChoices=[];
+    score--;
+    scoreArea.innerHTML ="";
+    scoreArea.innerHTML +=`<div>Coups Restants</div><div>${score}</div>`
+      
 }
 
-        
-       console.log(imgAttribut);
+//--------------------------------Layers------------------------
 
 
+function playLayer(){
+    layer.classList.add("hidden");
+}
+
+function looseLayer(){
+    layer.classList.remove("hidden")
+    let playBtn = document.getElementById("playBtn");
+    playBtn.classList.add("hidden");
+    replayBtn.classList.remove("hidden");
+    let loose= document.getElementById("looseImg");
+    loose.classList.remove("hidden");
+}
+
+function winLayer(){
+    layer.classList.remove("hidden");
+    let playBtn = document.getElementById("playBtn");
+    playBtn.classList.add("hidden");
+    replayBtn.classList.remove("hidden");
+    let win= document.getElementById("winImg");
+    win.classList.remove("hidden");
+}
